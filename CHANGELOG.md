@@ -1,3 +1,4 @@
-## [0.0.1] - TODO: Add release date.
+## [1.0.0] - Jun 26, 2020.
 
-* TODO: Describe initial release.
+* Initial release
+* Forked of [Animated_splash](https://pub.dev/packages/animated_splash)
