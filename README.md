@@ -1,6 +1,6 @@
 # splashy
 
-A new Flutter package project.
+## This project is a fork of Animated Splash
 
 ## Getting Started
 
