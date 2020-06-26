@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:splashy/splashy.dart';
 
+
 void main(){
     Future<Widget> customFunction() {
     print('Something background process');
