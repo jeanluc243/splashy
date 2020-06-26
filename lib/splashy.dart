@@ -8,7 +8,7 @@ enum AnimationStyle { CircularReveal, FadeIn, Still, Scale }
 enum Config { Default, Styled, Custom }
 
 // ignore: must_be_immutable
-class AnimatedSplash extends StatefulWidget {
+class Splashy extends StatefulWidget {
   Future<Widget> _backgroundProcess;
   String _imagePath;
   int _duration = 1000;
@@ -19,7 +19,7 @@ class AnimatedSplash extends StatefulWidget {
   Widget _child;
   Curve _animCurve = Curves.easeInOutCirc;
 
-  AnimatedSplash(
+  Splashy(
       {@required String imagePath, @required Future<Widget> customFunction}) {
     assert(imagePath != null);
     assert(customFunction != null);
@@ -29,7 +29,7 @@ class AnimatedSplash extends StatefulWidget {
     _animationStyle = AnimationStyle.FadeIn;
   }
 
-  AnimatedSplash.styled(
+  Splashy.styled(
       {@required String imagePath,
       @required Future<Widget> customFunction,
       Color backgroundColor,
@@ -51,7 +51,7 @@ class AnimatedSplash extends StatefulWidget {
     if (_duration < 1000) _duration = 1000;
   }
 
-  AnimatedSplash.custom({
+  Splashy.custom({
     @required Widget child,
     @required Future<Widget> customFunction,
   }) {
@@ -61,10 +61,10 @@ class AnimatedSplash extends StatefulWidget {
   }
 
   @override
-  _AnimatedSplashState createState() => _AnimatedSplashState();
+  _SplashyState createState() => _SplashyState();
 }
 
-class _AnimatedSplashState extends State<AnimatedSplash>
+class _SplashyState extends State<Splashy>
     with TickerProviderStateMixin {
   //  For fade animation
   AnimationController _animationController;

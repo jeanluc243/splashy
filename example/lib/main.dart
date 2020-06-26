@@ -15,8 +15,13 @@ void main(){
   }
 
   runApp(MaterialApp(
-    home: AnimatedSplash(
+    home: Splashy.styled(
       imagePath: "assets/flutter_icon.png",
+      style: AnimationStyle.Scale,
+      curve: Curves.decelerate,
+      backgroundColor: Colors.yellow,
+      duration: 10000,
+
       customFunction: customFunction(),
       // home: HomePage(),
     ),
