@@ -13,37 +13,31 @@ class Splashy extends StatefulWidget {
   String _imagePath;
   int _duration = 1000;
   Color _backgroundColor = Colors.white;
-  double _logoHeight = 250.0, _logoWidth = 250.0;
+  double _logoHeight = 200.0, _logoWidth = 200.0;
   Config _configStyle = Config.Default;
-  AnimationStyle _animationStyle = AnimationStyle.FadeIn;
   Widget _child;
+  AnimationStyle _animationStyle = AnimationStyle.FadeIn;
+  Widget _bottomLoader;
   Curve _animCurve = Curves.easeInOutCirc;
 
   Splashy(
-      {@required String imagePath, @required Future<Widget> customFunction}) {
-    assert(imagePath != null);
-    assert(customFunction != null);
-    _backgroundProcess = customFunction;
-    _imagePath = imagePath;
-    _configStyle = Config.Default;
-    _animationStyle = AnimationStyle.FadeIn;
-  }
-
-  Splashy.styled(
       {@required String imagePath,
       @required Future<Widget> customFunction,
+      AnimationStyle style,
+      Curve curve,
+      int duration,
       Color backgroundColor,
       double logoHeight,
       double logoWidth,
-      int duration,
-      @required AnimationStyle style,
-      @required Curve curve}) {
+      Widget bottomLoader}) {
+    assert(imagePath != null);
+    assert(customFunction != null);
+    _backgroundProcess = customFunction;
     _configStyle = Config.Styled;
     _imagePath = imagePath;
-    _backgroundProcess = customFunction;
     _animationStyle = style;
     _animCurve = curve;
-
+    _bottomLoader = bottomLoader;
     _backgroundColor = backgroundColor ?? _backgroundColor;
     _logoHeight = logoHeight ?? _logoHeight;
     _logoWidth = logoWidth ?? _logoWidth;
@@ -51,21 +45,11 @@ class Splashy extends StatefulWidget {
     if (_duration < 1000) _duration = 1000;
   }
 
-  Splashy.custom({
-    @required Widget child,
-    @required Future<Widget> customFunction,
-  }) {
-    _configStyle = Config.Custom;
-    _child = child;
-    _backgroundProcess = customFunction;
-  }
-
   @override
   _SplashyState createState() => _SplashyState();
 }
 
-class _SplashyState extends State<Splashy>
-    with TickerProviderStateMixin {
+class _SplashyState extends State<Splashy> with TickerProviderStateMixin {
   //  For fade animation
   AnimationController _animationController;
   Animation _animation;
@@ -141,7 +125,7 @@ class _SplashyState extends State<Splashy>
       _animation.removeStatusListener(defaultAnimationsStatusListener);
       _animationController.reset();
     }
-    if(widget._animationStyle == AnimationStyle.CircularReveal) {
+    if (widget._animationStyle == AnimationStyle.CircularReveal) {
       scaleAnim.removeListener(circularAnimationListener);
     }
     super.dispose();
@@ -164,8 +148,7 @@ class _SplashyState extends State<Splashy>
 
   _goBackground() => widget._backgroundProcess.then((Widget home) {
         debugPrint("Background process completed its execution");
-        if(widget._configStyle == Config.Custom)
-          _navigator(home);
+        if (widget._configStyle == Config.Custom) _navigator(home);
         if (_isAnimCompleted) {
           debugPrint(
               "Animation completed before Background process, navigating to $home");
@@ -199,32 +182,102 @@ class _SplashyState extends State<Splashy>
       case AnimationStyle.CircularReveal:
         return _circularRevealAnimatedLogo();
       case AnimationStyle.FadeIn:
-        return FadeTransition(
-          opacity: _animation,
-          child: Center(
-            child: Image.asset(widget._imagePath,
-                height: widget._logoHeight, width: widget._logoWidth),
-          ),
+        return Stack(
+          children: [
+            Positioned(
+                child: Align(
+              alignment: Alignment.center,
+              child: Align(
+                alignment: Alignment.center,
+                child: FadeTransition(
+                  opacity: _animation,
+                  child: Center(
+                    child: Image.asset(
+                      widget._imagePath,
+                      height: widget._logoHeight,
+                      width: widget._logoWidth,
+                    ),
+                  ),
+                ),
+              ),
+            )),
+            Positioned(
+                child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 90.0),
+                child: widget._bottomLoader,
+              ),
+            ))
+          ],
         );
+
       case AnimationStyle.Still:
-        return Center(
-          child: Image.asset(widget._imagePath,
-              height: widget._logoHeight, width: widget._logoWidth),
+        return Stack(
+          children: [
+            Positioned(
+                child: Align(
+              alignment: Alignment.center,
+              child: Center(
+                child: Image.asset(widget._imagePath,
+                    height: widget._logoHeight, width: widget._logoWidth),
+              ),
+            )),
+            Positioned(
+                child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 100.0),
+                child: widget._bottomLoader,
+              ),
+            ))
+          ],
         );
       case AnimationStyle.Scale:
-        return Center(
-          child: SizeTransition(
-            sizeFactor: _animation,
-            child: Center(
-              child: Image.asset(widget._imagePath,
-                  height: widget._logoHeight, width: widget._logoWidth),
-            ),
-          ),
+        return Stack(
+          children: [
+            Positioned(
+                child: Align(
+              alignment: Alignment.center,
+              child: SizeTransition(
+                sizeFactor: _animation,
+                child: Center(
+                  child: Image.asset(widget._imagePath,
+                      height: widget._logoHeight, width: widget._logoWidth),
+                ),
+              ),
+            )),
+            Positioned(
+                child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 100.0),
+                child: widget._bottomLoader,
+              ),
+            ))
+          ],
         );
+
       default:
-        return Center(
-          child: Image.asset(widget._imagePath,
-              height: widget._logoHeight, width: widget._logoWidth),
+        return Stack(
+          children: [
+            Positioned(
+                child: Align(
+              alignment: Alignment.center,
+              child: Center(
+                child: Image.asset(widget._imagePath,
+                    height: widget._logoHeight, width: widget._logoWidth),
+              ),
+            )),
+            Positioned(
+                child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 100.0),
+                child: widget._bottomLoader,
+              ),
+            ))
+          ],
         );
     }
   }

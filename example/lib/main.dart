@@ -9,18 +9,22 @@ void main(){
     print(a);
 
     if (a > 100)
-      return Future.value(Home());
+      return Future.value(Home1());
+      // return Future.value(null);
     // else
     //   return Future.value(HomeSt());
   }
 
   runApp(MaterialApp(
-    home: Splashy.styled(
+    home: Splashy(
       imagePath: "assets/flutter_icon.png",
-      style: AnimationStyle.Scale,
-      curve: Curves.decelerate,
-      backgroundColor: Colors.yellow,
+      // style: AnimationStyle.FadeIn,
+      curve: Curves.easeInOut,
+      backgroundColor: Colors.grey,
+      logoHeight: 150,
+      logoWidth: 150,
       duration: 10000,
+      // bottomLoader: CircularProgressIndicator(),
 
       customFunction: customFunction(),
       // home: HomePage(),
@@ -28,12 +32,12 @@ void main(){
   ));
 }
 
-class Home extends StatefulWidget {
+class Home1 extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _Home1State createState() => _Home1State();
 }
 
-class _HomeState extends State<Home> {
+class _Home1State extends State<Home1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

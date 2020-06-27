@@ -1,4 +1,10 @@
-## [1.1.0] - Jun 27, 2020
+## [2.0.0] - Jun 27, 2020
+
+* Add Bottom Loader
+* Create Custom Functions
+* Splashy complete params
+
+## [1.1.0] - Jun 26, 2020
 
 * Customize splash Page
 
