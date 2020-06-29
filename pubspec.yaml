@@ -1,8 +1,8 @@
 name: splashy
 description: Splash Screen is the first visual users see when an application is launched.
-version: 2.0.2
+version: 2.1.2
 author: Jean Luc Kabulu
-homepage: https://splashy.github.io
+homepage: https://github.com/jeanluc243/splashy
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

@@ -1,3 +1,7 @@
+## [2.1.0] - Jun 28, 2020
+
+* Add License
+
 ## [2.0.2] - Jun 28, 2020
 
 * correct README.md
