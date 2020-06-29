@@ -1,3 +1,7 @@
+## [2.0.2] - Jun 28, 2020
+
+* correct README.md
+
 ## [2.0.0] - Jun 27, 2020
 
 * Add Bottom Loader
