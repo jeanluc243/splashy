@@ -1,3 +1,5 @@
+import 'package:example/amazon_page.dart';
+import 'package:example/linkedin_page.dart';
 import 'package:flutter/material.dart';
 import 'package:splashy/splashy.dart';
 
@@ -13,21 +15,24 @@ void main() {
     //   return Future.value(HomeSt());
   }
 
-  runApp(MaterialApp(
-    home: Splashy(
-      imagePath: "assets/flutter_icon.png",
-      style: AnimationStyle.Scale,
-      curve: Curves.decelerate,
-      backgroundColor: Colors.red,
-      logoHeight: 150,
-      logoWidth: 150,
-      // duration: 10000,
-      bottomLoader: CircularProgressIndicator(),
+  runApp(Linkedin());
 
-      customFunction: customFunction(),
-      // home: HomePage(),
-    ),
-  ));
+  // TODO : Demo
+  // runApp(MaterialApp(
+  //   home: Splashy(
+  //     imagePath: "assets/flutter_icon.png",
+  //     style: AnimationStyle.Scale,
+  //     curve: Curves.decelerate,
+  //     backgroundColor: Colors.red,
+  //     logoHeight: 150,
+  //     logoWidth: 150,
+  //     // duration: 10000,
+  //     bottomLoader: CircularProgressIndicator(),
+
+  //     customFunction: customFunction(),
+  //     // home: HomePage(),
+  //   ),
+  // ));
 }
 
 class Home1 extends StatefulWidget {
