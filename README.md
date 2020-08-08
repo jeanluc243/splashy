@@ -32,7 +32,7 @@ void main(){
 
     Future<Widget> customFunction(){
         print("Background process");
-        return Future.value(HomPage())
+        return Future.value(HomePage())
     }
 
     runApp(MaterialApp(
