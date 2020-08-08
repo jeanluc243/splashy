@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'package:page_transition/page_transition.dart';
+
 enum AnimationStyle { CircularReveal, FadeIn, Still, Scale }
 enum Config { Default, Styled, Custom }
 
@@ -19,6 +21,7 @@ class Splashy extends StatefulWidget {
   AnimationStyle _animationStyle = AnimationStyle.FadeIn;
   Widget _bottomLoader;
   Curve _animCurve = Curves.easeInOutCirc;
+  PageTransitionType pageTransitionType = PageTransitionType.rightToLeft;
 
   Splashy(
       {@required String imagePath,
@@ -140,10 +143,14 @@ class _SplashyState extends State<Splashy> with TickerProviderStateMixin {
     }
   }
 
+  // _navigator(home) {
+  //   Navigator.of(context).pushReplacement(Platform.isAndroid
+  //       ? MaterialPageRoute(builder: (BuildContext context) => home)
+  //       : CupertinoPageRoute(builder: (BuildContext context) => home));
+  // }
   _navigator(home) {
-    Navigator.of(context).pushReplacement(Platform.isAndroid
-        ? MaterialPageRoute(builder: (BuildContext context) => home)
-        : CupertinoPageRoute(builder: (BuildContext context) => home));
+    Navigator.pushReplacement(context,
+        PageTransition(child: home, type: PageTransitionType.rightToLeft));
   }
 
   _goBackground() => widget._backgroundProcess.then((Widget home) {

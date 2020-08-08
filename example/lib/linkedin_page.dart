@@ -13,6 +13,7 @@ class Linkedin extends StatelessWidget {
       debugShowCheckedModeBanner: true,
       home: Splashy(
         imagePath: "assets/linkindin.png",
+        style: AnimationStyle.Still,
         backgroundColor: Color(0xFF066dae),
         customFunction: customFunction(),
         curve: Curves.linear,

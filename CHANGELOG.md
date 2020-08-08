@@ -1,3 +1,7 @@
+## [3.0.0] - Aug 8, 2020
+
+* Add Transition
+
 ## [2.1.0] - Jun 28, 2020
 
 * Add License

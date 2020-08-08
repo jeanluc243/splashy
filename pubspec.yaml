@@ -1,6 +1,6 @@
 name: splashy
 description: Splash Screen is the first visual users see when an application is launched.
-version: 2.1.2
+version: 3.0.0
 author: Jean Luc Kabulu
 homepage: https://github.com/jeanluc243/splashy
 
@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
+  page_transition: ^1.1.6
 
 dev_dependencies:
   flutter_test:
