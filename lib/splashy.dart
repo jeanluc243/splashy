@@ -23,16 +23,17 @@ class Splashy extends StatefulWidget {
   Curve _animCurve = Curves.easeInOutCirc;
   PageTransitionType pageTransitionType = PageTransitionType.rightToLeft;
 
-  Splashy(
-      {@required String imagePath,
-      @required Future<Widget> customFunction,
-      AnimationStyle style,
-      Curve curve,
-      int duration,
-      Color backgroundColor,
-      double logoHeight,
-      double logoWidth,
-      Widget bottomLoader}) {
+  Splashy({
+    @required String imagePath,
+    @required Future<Widget> customFunction,
+    AnimationStyle style,
+    Curve curve,
+    int duration,
+    Color backgroundColor,
+    double logoHeight,
+    double logoWidth,
+    Widget bottomLoader,
+  }) {
     assert(imagePath != null);
     assert(customFunction != null);
     _backgroundProcess = customFunction;
@@ -65,7 +66,7 @@ class _SplashyState extends State<Splashy> with TickerProviderStateMixin {
   MaterialType materialType = MaterialType.circle;
   double _height, _width;
 
-  //  Default requirements
+  // Default requirements
   bool _isAnimCompleted = false, _isBackgroundProcessCompleted = false;
   Widget _homeAfterBackgroundProcess;
 
@@ -73,9 +74,13 @@ class _SplashyState extends State<Splashy> with TickerProviderStateMixin {
   void initState() {
     if (widget._animationStyle != AnimationStyle.CircularReveal) {
       _animationController = new AnimationController(
-          vsync: this, duration: Duration(milliseconds: widget._duration));
+        vsync: this,
+        duration: Duration(milliseconds: widget._duration),
+      );
       _animation = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-          parent: _animationController, curve: widget._animCurve));
+          parent: _animationController,
+          curve: widget._animCurve,
+      ));
       widget._configStyle == Config.Custom
           ? debugPrint(
               "Animated controller is not started as config style is custom")
@@ -84,17 +89,19 @@ class _SplashyState extends State<Splashy> with TickerProviderStateMixin {
     }
 
     if (widget._animationStyle == AnimationStyle.CircularReveal) {
-      //  For Circular reveal animation
+      // For Circular reveal animation
       scaleAnimController = AnimationController(
-          vsync: this,
-          duration: animDuration,
-          debugLabel: 'SplashScreen-CircleAnim');
+        vsync: this,
+        duration: animDuration,
+        debugLabel: 'SplashScreen-CircleAnim',
+      );
       scaleAnim = Tween(begin: 0.7, end: 1.0).animate(scaleAnimController);
 
       radiusAnimController = AnimationController(
-          vsync: this,
-          duration: Duration(milliseconds: 10),
-          debugLabel: 'SplashScreen-CircleAnim');
+        vsync: this,
+        duration: Duration(milliseconds: 10),
+        debugLabel: 'SplashScreen-CircleAnim',
+      );
       radiusAnim = Tween(begin: 1.0, end: 0.0).animate(radiusAnimController);
 
       Future.delayed(Duration(seconds: 2)).whenComplete(() {
@@ -149,8 +156,13 @@ class _SplashyState extends State<Splashy> with TickerProviderStateMixin {
   //       : CupertinoPageRoute(builder: (BuildContext context) => home));
   // }
   _navigator(home) {
-    Navigator.pushReplacement(context,
-        PageTransition(child: home, type: PageTransitionType.rightToLeft));
+    Navigator.pushReplacement(
+      context,
+      PageTransition(
+        child: home,
+        type: PageTransitionType.rightToLeft,
+      ),
+    );
   }
 
   _goBackground() => widget._backgroundProcess.then((Widget home) {
@@ -188,12 +200,11 @@ class _SplashyState extends State<Splashy> with TickerProviderStateMixin {
     switch (widget._animationStyle) {
       case AnimationStyle.CircularReveal:
         return _circularRevealAnimatedLogo();
+
       case AnimationStyle.FadeIn:
         return Stack(
           children: [
             Positioned(
-                child: Align(
-              alignment: Alignment.center,
               child: Align(
                 alignment: Alignment.center,
                 child: FadeTransition(
@@ -207,15 +218,16 @@ class _SplashyState extends State<Splashy> with TickerProviderStateMixin {
                   ),
                 ),
               ),
-            )),
+            ),
             Positioned(
-                child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 90.0),
-                child: widget._bottomLoader,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 90.0),
+                  child: widget._bottomLoader,
+                ),
               ),
-            ))
+            ),
           ],
         );
 
@@ -223,45 +235,56 @@ class _SplashyState extends State<Splashy> with TickerProviderStateMixin {
         return Stack(
           children: [
             Positioned(
-                child: Align(
-              alignment: Alignment.center,
-              child: Center(
-                child: Image.asset(widget._imagePath,
-                    height: widget._logoHeight, width: widget._logoWidth),
+              child: Align(
+                alignment: Alignment.center,
+                child: Center(
+                  child: Image.asset(
+                    widget._imagePath,
+                    height: widget._logoHeight,
+                    width: widget._logoWidth,
+                  ),
+                ),
               ),
-            )),
+            ),
             Positioned(
-                child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 100.0),
-                child: widget._bottomLoader,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 100.0),
+                  child: widget._bottomLoader,
+                ),
               ),
-            ))
+            ),
           ],
         );
+
       case AnimationStyle.Scale:
         return Stack(
           children: [
             Positioned(
-                child: Align(
+              child: Align(
               alignment: Alignment.center,
-              child: SizeTransition(
-                sizeFactor: _animation,
-                child: Center(
-                  child: Image.asset(widget._imagePath,
-                      height: widget._logoHeight, width: widget._logoWidth),
+                child: SizeTransition(
+                  sizeFactor: _animation,
+                  child: Center(
+                    child: Image.asset(
+                      widget._imagePath,
+                      height: widget._logoHeight,
+                      width: widget._logoWidth,
+                    ),
+                  ),
                 ),
               ),
-            )),
+            ),
             Positioned(
-                child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 100.0),
-                child: widget._bottomLoader,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 100.0),
+                  child: widget._bottomLoader,
+                ),
               ),
-            ))
+            ),
           ],
         );
 
@@ -269,21 +292,26 @@ class _SplashyState extends State<Splashy> with TickerProviderStateMixin {
         return Stack(
           children: [
             Positioned(
-                child: Align(
-              alignment: Alignment.center,
-              child: Center(
-                child: Image.asset(widget._imagePath,
-                    height: widget._logoHeight, width: widget._logoWidth),
+              child: Align(
+                alignment: Alignment.center,
+                child: Center(
+                  child: Image.asset(
+                    widget._imagePath,
+                    height: widget._logoHeight,
+                    width: widget._logoWidth,
+                  ),
+                ),
               ),
-            )),
+            ),
             Positioned(
-                child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 100.0),
-                child: widget._bottomLoader,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 100.0),
+                  child: widget._bottomLoader,
+                ),
               ),
-            ))
+            ),
           ],
         );
     }
@@ -299,15 +327,18 @@ class _SplashyState extends State<Splashy> with TickerProviderStateMixin {
                   width: _width * scaleAnim.value,
                   height: _height * scaleAnim.value,
                   decoration: BoxDecoration(
-                      color: Colors.greenAccent,
-                      borderRadius:
-                          BorderRadius.circular(_width * radiusAnim.value)),
+                    color: Colors.greenAccent,
+                    borderRadius: BorderRadius.circular(_width * radiusAnim.value),
+                  ),
                 ),
               );
             },
           ),
           Center(
-            child: Image.asset(widget._imagePath, height: widget._logoHeight),
+            child: Image.asset(
+              widget._imagePath,
+              height: widget._logoHeight,
+            ),
           ),
         ],
       );
