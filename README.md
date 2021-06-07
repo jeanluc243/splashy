@@ -28,20 +28,20 @@ One might wonder what is ‘splashy’ about Splash Screen. Frankly, very little
 import 'package:flutter/material.dart';
 import 'package:splashy/splashy.dart';
 
-void main(){
+void main() {
 
-    Future<Widget> customFunction(){
+    Future<Widget> customFunction() {
         print("Background process");
-        return Future.value(HomePage())
+        return Future.value(HomePage());
     }
 
     runApp(MaterialApp(
         home: Splashy(
             imagePath: "assets/flutter_icon.png",
-            curve : Curves.easeInOut,
-            backgroundColor : Colors.blue,
+            curve: Curves.easeInOut,
+            backgroundColor: Colors.blue,
             customFunction: customFunction(),
-        )
+        ),
     ));
 }
 
@@ -58,7 +58,9 @@ class _HomeState extends State<HomePage> {
       appBar: AppBar(
         title: Text("Splashy"),
       ),
-      body: Center(child: Text("Hello World"),),
+      body: Center(
+        child: Text("Hello World"),
+      ),
     );
   }
 }
@@ -68,4 +70,4 @@ class _HomeState extends State<HomePage> {
 ## maintainer
 <hr>
 
-* [Jean Luc Kabulu](https://twitter.com/jeanluckabulu) *don't hesite to 🐦 me  or /and to buy a 🍹 for me 🤠*
+* [Jean Luc Kabulu](https://twitter.com/jeanluckabulu) *don't hesite to 🐦 me or /and to buy a 🍹 for me 🤠*
