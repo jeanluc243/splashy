@@ -120,7 +120,7 @@ class _SplashyState extends State<Splashy> with TickerProviderStateMixin {
       });
       radiusAnimController.forward();
     }
-    if (scaleAnimController.status == AnimationStatus.completed) {}
+    // if (scaleAnimController.status == AnimationStatus.completed) {}
     if (scaleAnim.status == AnimationStatus.completed) _isAnimCompleted = true;
     if (_isAnimCompleted && _isBackgroundProcessCompleted) {
       debugPrint(
