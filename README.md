@@ -29,20 +29,19 @@ import 'package:flutter/material.dart';
 import 'package:splashy/splashy.dart';
 
 void main() {
+  Future<Widget> customFunction() {
+    print("Background process");
+    return Future.value(HomePage());
+  }
 
-    Future<Widget> customFunction() {
-        print("Background process");
-        return Future.value(HomePage());
-    }
-
-    runApp(MaterialApp(
-        home: Splashy(
-            imagePath: "assets/flutter_icon.png",
-            curve: Curves.easeInOut,
-            backgroundColor: Colors.blue,
-            customFunction: customFunction(),
-        ),
-    ));
+  runApp(MaterialApp(
+    home: Splashy(
+      imagePath: "assets/flutter_icon.png",
+      curve: Curves.easeInOut,
+      backgroundColor: Colors.blue,
+      customFunction: customFunction(),
+    ),
+  ));
 }
 
 
